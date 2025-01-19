@@ -46,19 +46,18 @@ class Lexer:
         decimal_point_count = 0
 
         if self.current_char == '.':
-            number_str += '0'  # Для случая, когда число начинается с точки
+            number_str += '0'
             self.advance()
 
         while self.current_char is not None and (self.current_char in DIGITS or self.current_char == '.'):
             if self.current_char == '.':
                 decimal_point_count += 1
                 if decimal_point_count > 1:
-                    break  # Не больше одной десятичной точки в числе
-
+                    break 
             number_str += self.current_char
             self.advance()
 
-        # Если число начиналось с точки, но без ведущей нули
+        
         if number_str.startswith('.'):
             number_str = '0' + number_str
 
