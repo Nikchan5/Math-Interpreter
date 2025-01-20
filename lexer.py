@@ -1,6 +1,6 @@
 from mtoken import Token, TokenType
 
-WHITESPACE = '\n\t'
+WHITESPACE = '\n\t '  # Добавляем пробел в список символов, которые игнорируются
 DIGITS = '0123456789'
 
 class Lexer:
@@ -17,7 +17,7 @@ class Lexer:
     def generate_tokens(self):
         while self.current_char is not None:
             if self.current_char in WHITESPACE:
-                self.advance()
+                self.advance()  # Просто игнорируем пробелы
             elif self.current_char in DIGITS or self.current_char == '.':
                 yield self.generate_number()
             elif self.current_char == '+':
@@ -45,10 +45,6 @@ class Lexer:
         number_str = ''
         decimal_point_count = 0
 
-        if self.current_char == '.':
-            number_str += '0'
-            self.advance()
-
         while self.current_char is not None and (self.current_char in DIGITS or self.current_char == '.'):
             if self.current_char == '.':
                 decimal_point_count += 1
@@ -56,9 +52,5 @@ class Lexer:
                     break 
             number_str += self.current_char
             self.advance()
-
-        
-        if number_str.startswith('.'):
-            number_str = '0' + number_str
 
         return Token(TokenType.NUMBER, float(number_str))
