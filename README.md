@@ -2,5 +2,5 @@ Welcome to my little repository, I am creating my own math interpreter, the proj
 
 
 Lexer - ✅
-Parser - ❌
+Parser - :white_check_mark
 Interpreter - ❌
