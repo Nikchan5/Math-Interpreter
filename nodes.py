@@ -5,7 +5,10 @@ class NodeNumber:
      value: float
 
      def __repr__(self):
-          return f"{self.value}"
+          return self._repr
+
+     def __post_init__(self):
+          self._repr = f"{self.value}"
      
 @dataclass
 class AddNode:
