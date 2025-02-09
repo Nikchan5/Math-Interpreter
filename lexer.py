@@ -9,10 +9,7 @@ class Lexer:
         self.advance()
 
     def advance(self):
-        try:
-            self.current_char = next(self.text)
-        except StopIteration:
-            self.current_char = None
+        self.current_char = next(self.text, None)
 
     def generate_tokens(self):
         while self.current_char is not None:
@@ -42,15 +39,15 @@ class Lexer:
                 raise Exception(f"Illegal character '{self.current_char}'")
 
     def generate_number(self):
-        number_str = ''
+        number_str = []
         decimal_point_count = 0
 
-        while self.current_char is not None and (self.current_char in DIGITS or self.current_char == '.'):
+        while self.current_char is not None and (self.current_char.isdigit() or self.current_char == '.'):
             if self.current_char == '.':
                 decimal_point_count += 1
-                if decimal_point_count > 1:
-                    break 
-            number_str += self.current_char
+                if decimal_point_count > 1: 
+                    break
+            number_str.append(self.current_char)
             self.advance()
 
-        return Token(TokenType.NUMBER, float(number_str))
+        return Token(TokenType.NUMBER, float(''.join(number_str)))
